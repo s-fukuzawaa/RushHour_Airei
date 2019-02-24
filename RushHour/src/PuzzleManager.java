@@ -733,9 +733,9 @@ public class PuzzleManager
 		// or remove board filenames from this array
 		runBoards(new String[]
 				{
-						"board-puzzle-01.txt",
-						"board-puzzle-11.txt",
-						"board-puzzle-21.txt",
+						"board-evens.txt",
+						"board-evens.txt",
+						"board-evens.txt",
 				});
 	}
 }
