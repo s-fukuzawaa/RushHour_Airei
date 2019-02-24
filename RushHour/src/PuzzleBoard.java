@@ -17,36 +17,41 @@ public class PuzzleBoard
 		for(int i=0; i<idToVehicleP.length; i++)
 		{
 			this.idToVehicle[i]=idToVehicleP[i];
-			if(idToVehicle[i].getIsHorizontal())
+			if(idToVehicle[i]!=null)
 			{
-				int row=idToVehicle[i].getLeftTopRow();
-					int col=idToVehicle[i].getLeftTopColumn();
+				if(idToVehicle[i].getIsHorizontal())
+				{
+					int row=idToVehicle[i].getLeftTopRow();
+						int col=idToVehicle[i].getLeftTopColumn();
+						
+						for(int j=0; j<idToVehicle[i].getLength(); j++)
+						{
+							LinearProbingHashST<Integer,Vehicle> colid=new LinearProbingHashST<Integer,Vehicle>();
+
+							colid.put(col+j, idToVehicle[i]);
+							board.put(row, colid);
+						}
+						
 					
-					for(int j=0; j<idToVehicle[i].getLength(); j++)
-					{
+				}
+				if(idToVehicle[i].getIsHorizontal()==false)
+				{
+					int row=idToVehicle[i].getLeftTopRow();
+						int col=idToVehicle[i].getLeftTopColumn();
 						LinearProbingHashST<Integer,Vehicle> colid=new LinearProbingHashST<Integer,Vehicle>();
 
-						colid.put(col+j, idToVehicle[i]);
-						board.put(row, colid);
-					}
-					
-				
-			}
-			if(idToVehicle[i].getIsHorizontal()==false)
-			{
-				int row=idToVehicle[i].getLeftTopRow();
-					int col=idToVehicle[i].getLeftTopColumn();
-					LinearProbingHashST<Integer,Vehicle> colid=new LinearProbingHashST<Integer,Vehicle>();
-
-					colid.put(col, idToVehicle[i]);
-					for(int j=0; j<idToVehicle[i].getLength(); j++)
-					{
+						colid.put(col, idToVehicle[i]);
+						for(int j=0; j<idToVehicle[i].getLength(); j++)
+						{
+							
+							board.put(row+j, colid);
+						}
 						
-						board.put(row+j, colid);
-					}
 					
-				
+				}
 			}
+				
+			
 		}
 		
 	}
