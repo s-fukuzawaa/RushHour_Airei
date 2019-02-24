@@ -111,7 +111,7 @@ public class PuzzleBoard
 	
 	public boolean isGoal()
 	{
-		return (idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength()-1)==6;
+		return (idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength()-1)==5;
 	}
 	
 	public Iterable<PuzzleBoard> getNeighbors()
