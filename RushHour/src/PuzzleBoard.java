@@ -63,6 +63,14 @@ public class PuzzleBoard
 
 	public Vehicle getVehicle(int row, int column)
 	{
+		if(!board.contains(row))
+		{
+			return null;
+		}
+		else if(!board.get(row).contains(column))
+		{
+			return null;
+		}
 		return board.get(row).get(column);
 	}
 	
