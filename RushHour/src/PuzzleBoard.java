@@ -105,8 +105,16 @@ public class PuzzleBoard
 	}
 	
 	public int heuristicCostToGoal()
-	{
-		throw new UnsupportedOperationException();
+	{ 
+		int sum=0;
+		for(int i=idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength(); i<5;i++)
+		{
+			if(collide(idToVehicle[0].getLeftTopRow(),i))
+			{
+				sum++;
+			}
+		}
+		return 5-(idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength()-1)+sum;
 	}
 	
 	public boolean isGoal()
@@ -114,9 +122,116 @@ public class PuzzleBoard
 		return (idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength()-1)==5;
 	}
 	
+	
+	private boolean collide(int row, int column)
+	{
+		if(!boardhori.contains(row)&&!boardverti.contains(column))
+		{
+			return false;
+		}
+		if(boardhori.contains(row)&&boardhori.get(row).contains(column))
+		{
+			return true;
+		}
+		if(boardverti.contains(column)&&boardverti.get(column).contains(row))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
 	public Iterable<PuzzleBoard> getNeighbors()
 	{
-		throw new UnsupportedOperationException();
+		Stack<PuzzleBoard> result= new Stack<PuzzleBoard>();
+		
+		Vehicle[] modi= new Vehicle[idToVehicle.length];
+		for(int i=0; i<idToVehicle.length; i++)
+		{
+			modi[i]=idToVehicle[i];
+		}
+		
+		
+		
+		
+		
+		
+		
+		for(int i=0; i<idToVehicle.length; i++)
+		{
+			int row= idToVehicle[i].getLeftTopRow();
+			int col= idToVehicle[i].getLeftTopColumn();
+			int length= idToVehicle[i].getLength();
+			if(idToVehicle[i].getIsHorizontal())
+			{
+				if(col==0&&!collide(row,col+length))
+				{
+					Vehicle change= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow(),idToVehicle[i].getLeftTopColumn()+1,idToVehicle[i].getLength());
+					modi[i]=change;
+					PuzzleBoard pass= new PuzzleBoard(modi);
+					result.push(pass);
+					modi[i]=idToVehicle[i];
+				}
+				else if(col+length-1==5&&!collide(row,col-1))
+				{
+					Vehicle change= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow(),idToVehicle[i].getLeftTopColumn()-1,idToVehicle[i].getLength());
+					modi[i]=change;
+					PuzzleBoard pass= new PuzzleBoard(modi);
+					result.push(pass);
+					modi[i]=idToVehicle[i];
+				}
+				else if(!collide(row,col-1)&&!collide(row,col+length))
+				{
+					Vehicle change= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow(),idToVehicle[i].getLeftTopColumn()-1,idToVehicle[i].getLength());
+					modi[i]=change;
+					PuzzleBoard pass= new PuzzleBoard(modi);
+					result.push(pass);
+					Vehicle change2= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow(),idToVehicle[i].getLeftTopColumn()+1,idToVehicle[i].getLength());
+					modi[i]=change2;
+					PuzzleBoard pass2= new PuzzleBoard(modi);
+					result.push(pass2);
+					modi[i]=idToVehicle[i];
+				}
+			}
+			else
+			{
+				if(row==0&&!collide(row+length,col))
+				{
+					Vehicle change= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow()+1,idToVehicle[i].getLeftTopColumn(),idToVehicle[i].getLength());
+					modi[i]=change;
+					PuzzleBoard pass= new PuzzleBoard(modi);
+					result.push(pass);
+					modi[i]=idToVehicle[i];
+				}
+				else if(row+length-1==5&&!collide(row-1,col))
+				{
+					Vehicle change= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow()-1,idToVehicle[i].getLeftTopColumn(),idToVehicle[i].getLength());
+					modi[i]=change;
+					PuzzleBoard pass= new PuzzleBoard(modi);
+					result.push(pass);
+					modi[i]=idToVehicle[i];
+				}
+				else if(!collide(row-1,col)&&!collide(row+length,col))
+				{
+					Vehicle change= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow()-1,idToVehicle[i].getLeftTopColumn(),idToVehicle[i].getLength());
+					modi[i]=change;
+					PuzzleBoard pass= new PuzzleBoard(modi);
+					result.push(pass);
+					Vehicle change2= new Vehicle(idToVehicle[i].getId(),idToVehicle[i].getIsHorizontal(),idToVehicle[i].getLeftTopRow()+1,idToVehicle[i].getLeftTopColumn(),idToVehicle[i].getLength());
+					modi[i]=change2;
+					PuzzleBoard pass2= new PuzzleBoard(modi);
+					result.push(pass2);
+					modi[i]=idToVehicle[i];
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		return result;
 	}
 	
 	@Override
