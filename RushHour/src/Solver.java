@@ -11,9 +11,15 @@ public class Solver
 		private int costFromBeginningToHere;
 		private SearchNode previous;
 
+		public SearchNode(PuzzleBoard board, int costFromBeginningToHere, SearchNode previous)
+		{
+			this.board=board;
+			this.costFromBeginningToHere=costFromBeginningToHere;
+			this.previous=previous;
+		}
 		public int compareTo(SearchNode that)
 		{
-			throw new UnsupportedOperationException();
+			return previous.compareTo(that);
 		}
 
 		@Override
