@@ -107,7 +107,7 @@ public class PuzzleBoard
 	public int heuristicCostToGoal()
 	{ 
 		int sum=0;
-		for(int i=idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength(); i<5;i++)
+		for(int i=idToVehicle[0].getLeftTopColumn()+idToVehicle[0].getLength(); i<6;i++)
 		{
 			if(collide(idToVehicle[0].getLeftTopRow(),i))
 			{
