@@ -125,6 +125,10 @@ public class PuzzleBoard
 	
 	private boolean collide(int row, int column)
 	{
+		if(row==-1||row==6||column==-1||column==6)
+		{
+			return true;
+		}
 		if(!boardhori.contains(row)&&!boardverti.contains(column))
 		{
 			return false;
