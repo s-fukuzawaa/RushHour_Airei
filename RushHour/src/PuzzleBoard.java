@@ -162,7 +162,7 @@ public class PuzzleBoard
 		{
 			if(idToVehicle[i]==null)
 			{
-				i++;
+				i--;
 			}
 			else
 			{

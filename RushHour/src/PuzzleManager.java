@@ -722,7 +722,7 @@ public class PuzzleManager
 		// able to make any slide at all--this makes interactive use more
 		// pleasant, as you can move one vehicle across multiple open spaces
 		// at once
-		VERIFY_NEIGHBORS = false;
+		VERIFY_NEIGHBORS = true;
 
 		// You can run boards in two ways by choosing which code to comment-out
 
@@ -733,9 +733,9 @@ public class PuzzleManager
 		// or remove board filenames from this array
 		runBoards(new String[]
 				{
-						"board-evens.txt",
-						"board-evens.txt",
-						"board-evens.txt",
+						"board-puzzle-34.txt",
+						"board-puzzle-34.txt",
+						"board-puzzle-34.txt",
 				});
 	}
 }
