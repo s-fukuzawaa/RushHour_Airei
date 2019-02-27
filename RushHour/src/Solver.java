@@ -4,6 +4,10 @@ import java.util.HashSet;
 
 public class Solver
 {
+	private SearchNode track;
+	private UpdateableMinPQ priq;
+	
+	
 	private static class SearchNode implements Comparable<SearchNode>
 	{
 		// Important!! Do not change the names or types of these fields!
@@ -85,9 +89,31 @@ public class Solver
 
 	public Solver(PuzzleBoard initial)
 	{
-		throw new UnsupportedOperationException();
+		this.priq=new UpdateableMinPQ();
+		SearchNode ori= new SearchNode(initial,0,null);
+		this.priq.insert(ori);
+		helpcon(initial,0,ori);
+		
 	}
 
+	private void helpcon(PuzzleBoard begin, int sum, SearchNode prev)
+	{
+		if(begin.isGoal())
+		{
+			return;
+		}
+		
+		while(begin.getNeighbors().iterator().hasNext())
+		{
+			PuzzleBoard temp=begin.getNeighbors().iterator().next();
+			SearchNode insertq= new SearchNode(temp,sum+1,prev);
+			this.priq.insert(insertq);
+			
+			helpcon(temp,sum+1,insertq);
+		}
+	}
+	
+	
 	public Solver(PuzzleBoard initial, boolean extraCredit)
 	{
 		// DO NOT TOUCH unless you are passing all of the tests and wish to
