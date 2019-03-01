@@ -98,7 +98,7 @@ public class Solver
 			SearchNode temp=this.priQ.delMin();
 			if(temp.board.isGoal())
 			{
-				goal=temp;
+				goal=new SearchNode(temp.board,temp.costFromBeginningToHere,temp.previous);
 				break;
 			}
 		}
