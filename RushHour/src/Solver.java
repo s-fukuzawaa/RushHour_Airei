@@ -98,7 +98,7 @@ public class Solver
 			SearchNode temp=this.priQ.delMin();
 			if(temp.board.isGoal())
 			{
-				goal=new SearchNode(temp.board,temp.costFromBeginningToHere,temp.previous);
+				this.goal=temp;
 				break;
 			}
 		}
@@ -121,7 +121,7 @@ public class Solver
 		while(goal.previous!=null)
 		{
 			result.push(goal.board);
-			goal=goal.previous;
+			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
 		}
 		
 		return result;
