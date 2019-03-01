@@ -2,10 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+
+
 public class Solver
 {
 	private SearchNode track;
-	private UpdateableMinPQ priq;
+	private UpdateableMinPQ<SearchNode> priq;
 	
 	
 	private static class SearchNode implements Comparable<SearchNode>
@@ -89,9 +91,9 @@ public class Solver
 
 	public Solver(PuzzleBoard initial)
 	{
-		this.priq=new UpdateableMinPQ();
+		this.priq=new UpdateableMinPQ<SearchNode>();
 		SearchNode ori= new SearchNode(initial,0,null);
-		this.priq.insert(ori);
+		priq.insert(ori);
 		helpcon(initial,0,ori);
 		
 	}
