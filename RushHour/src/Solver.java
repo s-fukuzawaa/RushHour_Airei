@@ -6,8 +6,7 @@ import java.util.HashSet;
 
 public class Solver
 {
-	private SearchNode track;
-	private UpdateableMinPQ<SearchNode> priq;
+	private UpdateableMinPQ<SearchNode> priQ;
 	
 	
 	private static class SearchNode implements Comparable<SearchNode>
@@ -91,29 +90,21 @@ public class Solver
 
 	public Solver(PuzzleBoard initial)
 	{
-		this.priq=new UpdateableMinPQ<SearchNode>();
+		this.priQ=new UpdateableMinPQ<SearchNode>();
 		SearchNode ori= new SearchNode(initial,0,null);
-		priq.insert(ori);
-		helpcon(initial,0,ori);
+		this.priQ.insert(ori);
+		while(!priQ.isEmpty())
+		{
+			SearchNode temp=this.priQ.delMin();
+			if(temp.board.isGoal())
+			{
+				break;
+			}
+		}
 		
 	}
 
-	private void helpcon(PuzzleBoard begin, int sum, SearchNode prev)
-	{
-		if(begin.isGoal())
-		{
-			return;
-		}
-		
-		while(begin.getNeighbors().iterator().hasNext())
-		{
-			PuzzleBoard temp=begin.getNeighbors().iterator().next();
-			SearchNode insertq= new SearchNode(temp,sum+1,prev);
-			this.priq.insert(insertq);
-			
-			helpcon(temp,sum+1,insertq);
-		}
-	}
+	
 	
 	
 	public Solver(PuzzleBoard initial, boolean extraCredit)
