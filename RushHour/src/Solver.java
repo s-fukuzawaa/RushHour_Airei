@@ -112,6 +112,7 @@ public class Solver
 			SearchNode temp=this.priQ.delMin();
 			if(temp.board.isGoal())
 			{
+				goal=temp;
 				break;
 			}
 			else
@@ -138,6 +139,12 @@ public class Solver
 
 	public Iterable<PuzzleBoard> getPath()
 	{
-		throw new UnsupportedOperationException();
+		Stack<PuzzleBoard> result= new Stack<PuzzleBoard>();
+		while(goal.previous!=null)
+		{
+			result.push(goal.board);
+			goal=goal.previous;
+		}
+		return result;
 	}
 }
