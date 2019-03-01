@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class Solver
 {
 	private UpdateableMinPQ<SearchNode> priQ;
-	
+	private SearchNode goal;
 	
 	private static class SearchNode implements Comparable<SearchNode>
 	{
@@ -24,7 +24,21 @@ public class Solver
 		}
 		public int compareTo(SearchNode that)
 		{
-			return previous.compareTo(that);
+			//if current is less than that then better
+			if(costFromBeginningToHere+board.heuristicCostToGoal()<that.costFromBeginningToHere+that.board.heuristicCostToGoal())
+			{
+				return -1;
+			}
+			
+			else if(costFromBeginningToHere+board.heuristicCostToGoal()>that.costFromBeginningToHere+that.board.heuristicCostToGoal())
+			{
+				return 1;
+			}
+			
+			return 0;
+			
+			
+			
 		}
 
 		@Override
@@ -99,6 +113,14 @@ public class Solver
 			if(temp.board.isGoal())
 			{
 				break;
+			}
+			else
+			{
+				while(temp.board.getNeighbors().iterator().hasNext())
+				{
+					PuzzleBoard a=temp.board.getNeighbors().iterator().next();
+					this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
+				}
 			}
 		}
 		
