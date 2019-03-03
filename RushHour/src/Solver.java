@@ -30,7 +30,7 @@ public class Solver
 			}
 			else if(costFromBeginningToHere+board.heuristicCostToGoal()>that.costFromBeginningToHere+that.board.heuristicCostToGoal())
 			{
-				return -1;
+				return 1;
 			}
 			return 0;
 		}
