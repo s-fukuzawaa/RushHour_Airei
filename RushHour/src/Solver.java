@@ -108,7 +108,7 @@ public class Solver
 			
 			if(temp.board.isGoal())
 			{
-				this.goal=new SearchNode(temp.previous.board, temp.previous.costFromBeginningToHere, temp.previous);
+				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp);
 				break;
 			}
 			else
