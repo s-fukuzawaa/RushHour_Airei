@@ -104,7 +104,7 @@ public class Solver
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
-			if(temp.board.isGoal())
+			if(temp.board.isGoal())//
 			{
 				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp.previous);
 				break;
