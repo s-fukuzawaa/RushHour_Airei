@@ -136,10 +136,10 @@ public class Solver
 	public Iterable<PuzzleBoard> getPath()
 	{
 		Stack<PuzzleBoard> result= new Stack<PuzzleBoard>();
-		while(goal.previous!=null)
+		while(goal.previous.previous!=null)
 		{
-			result.push(goal.board);
-			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
+			result.push(goal.previous.board);
+			goal=new SearchNode(goal.previous.previous.board,goal.previous.previous.costFromBeginningToHere,goal.previous.previous.previous);
 		}
 		
 		result.push(goal.board);
