@@ -24,7 +24,15 @@ public class Solver
 		}
 		public int compareTo(SearchNode that)
 		{
-			return previous.compareTo(that);
+			if(costFromBeginningToHere+board.heuristicCostToGoal()<that.costFromBeginningToHere+that.board.heuristicCostToGoal())
+			{
+				return -1;
+			}
+			else if(costFromBeginningToHere+board.heuristicCostToGoal()>that.costFromBeginningToHere+that.board.heuristicCostToGoal())
+			{
+				return -1;
+			}
+			return 0;
 		}
 
 		@Override
@@ -98,7 +106,7 @@ public class Solver
 			SearchNode temp=this.priQ.delMin();
 			if(temp.board.isGoal())
 			{
-				this.goal=temp;
+				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp);
 				break;
 			}
 			else
@@ -131,6 +139,7 @@ public class Solver
 			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
 		}
 		
+		result.push(goal.board);
 		return result;
 	}
 }
