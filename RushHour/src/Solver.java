@@ -101,6 +101,13 @@ public class Solver
 				this.goal=temp;
 				break;
 			}
+			else
+			{
+				while(temp.board.getNeighbors().iterator().hasNext())
+				{
+					priQ.insert(new SearchNode(temp.board.getNeighbors().iterator().next(),temp.costFromBeginningToHere+1,temp));
+				}
+			}
 		}
 		
 	}
