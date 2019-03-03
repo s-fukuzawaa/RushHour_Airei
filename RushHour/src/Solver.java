@@ -142,7 +142,6 @@ public class Solver
 			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
 		}
 		
-		result.push(goal.board);
 		return result;
 	}
 }
