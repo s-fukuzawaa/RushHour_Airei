@@ -111,14 +111,20 @@ public class Solver
 			}
 			else
 			{
-				while(temp.board.getNeighbors().iterator().hasNext())
+				PuzzleBoard compare=temp.board.getNeighbors().iterator().next();
+				SearchNode com1=new SearchNode(compare,temp.costFromBeginningToHere+1,temp);
+
+				for(PuzzleBoard a : temp.board.getNeighbors())
 				{
-					SearchNode compare=new SearchNode(temp.board.getNeighbors().iterator().next(),temp.costFromBeginningToHere+1,temp);
-					if(temp.compareTo(compare)>1)
+					SearchNode com2=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
+					if(com2.compareTo(com1)<0)
 					{
-						priQ.insert(compare);
+						com1=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
 					}
+					
+					
 				}
+				this.priQ.insert(com1);
 			}
 		}
 		
