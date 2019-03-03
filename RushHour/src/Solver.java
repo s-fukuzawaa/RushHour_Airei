@@ -100,13 +100,15 @@ public class Solver
 	{
 		this.priQ=new UpdateableMinPQ<SearchNode>();
 		SearchNode ori= new SearchNode(initial,0,null);
+		
 		this.priQ.insert(ori);
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
+			
 			if(temp.board.isGoal())
 			{
-				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp);
+				this.goal=new SearchNode(temp.previous.board, temp.previous.costFromBeginningToHere, temp.previous);
 				break;
 			}
 			else
@@ -136,10 +138,10 @@ public class Solver
 	public Iterable<PuzzleBoard> getPath()
 	{
 		Stack<PuzzleBoard> result= new Stack<PuzzleBoard>();
-		while(goal.previous.previous!=null)
+		while(goal.previous!=null)
 		{
-			result.push(goal.previous.board);
-			goal=new SearchNode(goal.previous.previous.board,goal.previous.previous.costFromBeginningToHere,goal.previous.previous.previous);
+			result.push(goal.board);
+			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
 		}
 		
 		result.push(goal.board);
