@@ -8,6 +8,7 @@ public class Solver
 {
 	private UpdateableMinPQ<SearchNode> priQ;
 	private SearchNode goal;//
+	private PuzzleBoard initial;
 	
 	private static class SearchNode implements Comparable<SearchNode>
 	{
@@ -100,6 +101,7 @@ public class Solver
 	{
 		this.priQ=new UpdateableMinPQ<SearchNode>();
 		SearchNode ori= new SearchNode(initial,0,null);
+		this.initial=initial;
 		this.priQ.insert(ori);
 		while(!priQ.isEmpty())
 		{
@@ -138,15 +140,20 @@ public class Solver
 		Stack<PuzzleBoard> result= new Stack<PuzzleBoard>();
 		while(goal.previous!=null)
 		{
-			result.push(goal.board);
 			if(goal.board.isGoal())
 			{
-				break;
+				goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
 			}
-			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
+			else
+			{
+				result.push(goal.board);
+				goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
+			}
+			
+			
 		}
 		
-		result.push(goal.board);
+		result.push(this.initial);
 		return result;
 	}
 }
