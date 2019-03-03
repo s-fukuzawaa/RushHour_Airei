@@ -139,6 +139,10 @@ public class Solver
 		while(goal.previous!=null)
 		{
 			result.push(goal.board);
+			if(goal.board.isGoal())
+			{
+				break;
+			}
 			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
 		}
 		
