@@ -113,7 +113,11 @@ public class Solver
 			{
 				while(temp.board.getNeighbors().iterator().hasNext())
 				{
-					priQ.insert(new SearchNode(temp.board.getNeighbors().iterator().next(),temp.costFromBeginningToHere+1,temp));
+					SearchNode compare=new SearchNode(temp.board.getNeighbors().iterator().next(),temp.costFromBeginningToHere+1,temp);
+					if(temp.compareTo(compare)>1)
+					{
+						priQ.insert(compare);
+					}
 				}
 			}
 		}
