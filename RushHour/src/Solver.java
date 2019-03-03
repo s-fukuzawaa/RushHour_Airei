@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class Solver
 {
 	private UpdateableMinPQ<SearchNode> priQ;
-	private SearchNode goal;
+	private SearchNode goal;//
 	
 	private static class SearchNode implements Comparable<SearchNode>
 	{
