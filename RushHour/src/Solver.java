@@ -99,11 +99,13 @@ public class Solver
 	public Solver(PuzzleBoard initial)
 	{
 		this.priQ=new UpdateableMinPQ<SearchNode>();
+		UpdateableMinPQ<PuzzleBoard>delQ=new UpdateableMinPQ<PuzzleBoard>();
 		SearchNode ori= new SearchNode(initial,0,null);
 		this.priQ.insert(ori);
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
+			delQ.insert(temp.board);
 			if(temp.board.isGoal())//
 			{
 				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp.previous);
