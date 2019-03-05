@@ -99,13 +99,15 @@ public class Solver
 	public Solver(PuzzleBoard initial)
 	{
 		this.priQ=new UpdateableMinPQ<SearchNode>();
-		UpdateableMinPQ<PuzzleBoard>delQ=new UpdateableMinPQ<PuzzleBoard>();
+		ArrayList<PuzzleBoard> del= new ArrayList<PuzzleBoard>();
+		ArrayList<PuzzleBoard> insert= new ArrayList<PuzzleBoard>();
+		ArrayList<SearchNode> inhelp= new ArrayList<SearchNode>();
 		SearchNode ori= new SearchNode(initial,0,null);
 		this.priQ.insert(ori);
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
-			delQ.insert(temp.board);
+			del.add(temp.board);
 			if(temp.board.isGoal())//
 			{
 				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp.previous);
@@ -116,8 +118,20 @@ public class Solver
 				
 				for(PuzzleBoard a : temp.board.getNeighbors())
 				{
-					this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
-					
+					if(!del.contains(a))
+					{
+						insert.add(temp.costFromBeginningToHere+1,a);
+						inhelp.add(temp.costFromBeginningToHere+1, temp);
+						this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
+						
+					}
+					else if(insert.contains(a))
+					{
+						if(insert.indexOf(a)>temp.costFromBeginningToHere+1)
+						{
+							priQ.updateKey(new SearchNode(a,insert.indexOf(a),inhelp.get(insert.indexOf(a))), new SearchNode(a,temp.costFromBeginningToHere+1,temp));
+						}
+					}
 				}
 				
 			}
