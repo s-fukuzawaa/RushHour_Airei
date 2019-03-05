@@ -107,9 +107,7 @@ public class Solver
 		
 		SearchNode ori= new SearchNode(initial,0,null);
 		this.priQ.insert(ori);
-		insert.add(ori.board);
-		inhelp.add(ori.previous);
-		cost.add(ori.costFromBeginningToHere);
+		
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
@@ -128,11 +126,11 @@ public class Solver
 				
 				for(PuzzleBoard a : temp.board.getNeighbors())
 				{
-					if(!del.contains(a))
+					if(!del.contains(a)&&!insert.contains(a))
 					{
 						insert.add(a);
 						inhelp.add(temp);
-						cost.add(temp.costFromBeginningToHere+1);
+   						cost.add((Integer)temp.costFromBeginningToHere+1);
 						this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
 						
 					}
