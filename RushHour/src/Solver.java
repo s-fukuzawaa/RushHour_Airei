@@ -110,6 +110,9 @@ public class Solver
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
+			inhelp.remove(temp.previous);
+			insert.remove(temp.board);
+			cost.remove(temp.costFromBeginningToHere);
 			del.add(temp.board);
 			if(temp.board.isGoal())//
 			{
@@ -135,6 +138,10 @@ public class Solver
 						if(cost.get(insert.indexOf(a))>temp.costFromBeginningToHere+1)
 						{
 							priQ.updateKey(new SearchNode(a,old,inhelp.get(old)), new SearchNode(a,temp.costFromBeginningToHere+1,temp));
+							inhelp.set(insert.indexOf(a), temp);
+							cost.set(insert.indexOf(a), temp.costFromBeginningToHere+1);
+						
+						
 						}
 					}
 				}
