@@ -107,12 +107,16 @@ public class Solver
 		
 		SearchNode ori= new SearchNode(initial,0,null);
 		this.priQ.insert(ori);
+		insert.add(ori.board);
+		inhelp.add(ori.previous);
+		cost.add(ori.costFromBeginningToHere);
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
 			inhelp.remove(temp.previous);
 			insert.remove(temp.board);
 			cost.remove(temp.costFromBeginningToHere);
+			
 			del.add(temp.board);
 			if(temp.board.isGoal())//
 			{
