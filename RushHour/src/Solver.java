@@ -115,7 +115,7 @@ public class Solver
 			SearchNode temp=this.priQ.delMin();
 			inhelp.remove(temp.previous);
 			insert.remove(temp.board);
-			cost.remove(temp.costFromBeginningToHere);
+			cost.remove((Integer)temp.costFromBeginningToHere);
 			
 			del.add(temp.board);
 			if(temp.board.isGoal())//
