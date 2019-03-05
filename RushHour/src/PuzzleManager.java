@@ -726,16 +726,16 @@ public class PuzzleManager
 
 		// You can run boards in two ways by choosing which code to comment-out
 
-		// This runs EVERY board from the testInput folder
+		//This runs EVERY board from the testInput folder
 //		runAllBoardsFromInputFolder();
 
 		// This runs SPECIFIC board(s) by name.  You may add
 		// or remove board filenames from this array
 		runBoards(new String[]
 				{
-						"board-justred-0.txt",
-						"board-justred-0.txt",
-						"board-justred-0.txt",
+						"board-1truck-1.txt",
+						"board-1truck-1.txt",
+						"board-1truck-1.txt",
 				});
 	}
 }
