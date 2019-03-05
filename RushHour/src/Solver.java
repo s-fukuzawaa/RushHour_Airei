@@ -101,19 +101,17 @@ public class Solver
 		this.priQ=new UpdateableMinPQ<SearchNode>();
 		
 		ArrayList<PuzzleBoard> del= new ArrayList<PuzzleBoard>();
-		ArrayList<PuzzleBoard> insert= new ArrayList<PuzzleBoard>();
-		ArrayList<SearchNode> inhelp= new ArrayList<SearchNode>();
-		ArrayList<Integer> cost= new ArrayList<Integer>();
+		LinearProbingHashST<PuzzleBoard, SearchNode> open= new LinearProbingHashST<PuzzleBoard, SearchNode>();
+		
 		
 		SearchNode ori= new SearchNode(initial,0,null);
 		this.priQ.insert(ori);
+		open.put(initial, ori);
 		
 		while(!priQ.isEmpty())
 		{
 			SearchNode temp=this.priQ.delMin();
-			inhelp.remove(temp.previous);
-			insert.remove(temp.board);
-			cost.remove((Integer)temp.costFromBeginningToHere);
+			open.delete(temp.board);
 			
 			del.add(temp.board);
 			if(temp.board.isGoal())//
@@ -126,23 +124,22 @@ public class Solver
 				
 				for(PuzzleBoard a : temp.board.getNeighbors())
 				{
-					if(!del.contains(a)&&!insert.contains(a))
+					if(!del.contains(a)&&!open.contains(a))
 					{
-						insert.add(a);
-						inhelp.add(temp);
-   						cost.add((Integer)temp.costFromBeginningToHere+1);
-						this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
+						SearchNode insert=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
+						this.priQ.insert(insert);
+						open.put(a, insert);
 						
 					}
-					if(insert.contains(a)&&!del.contains(a))
+					if(open.contains(a)&&!del.contains(a))
 					{
-						int old=cost.get(insert.indexOf(a));
-						if(old>temp.costFromBeginningToHere+1)
-						{
-							priQ.updateKey(new SearchNode(a,old,inhelp.get(insert.indexOf(a))), new SearchNode(a,temp.costFromBeginningToHere+1,temp));
-							inhelp.set(insert.indexOf(a), temp);
-							cost.set(insert.indexOf(a), temp.costFromBeginningToHere+1);
 						
+						if(open.get(a).costFromBeginningToHere>temp.costFromBeginningToHere+1)
+						{
+							SearchNode update=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
+							priQ.updateKey(open.get(a), update);
+							open.delete(a);
+							open.put(a, update);
 						
 						}
 					}
