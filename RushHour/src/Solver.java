@@ -137,9 +137,9 @@ public class Solver
 					if(insert.contains(a))
 					{
 						int old=cost.get(insert.indexOf(a));
-						if(cost.get(insert.indexOf(a))>temp.costFromBeginningToHere+1)
+						if(old>temp.costFromBeginningToHere+1)
 						{
-							priQ.updateKey(new SearchNode(a,old,inhelp.get(old)), new SearchNode(a,temp.costFromBeginningToHere+1,temp));
+							priQ.updateKey(new SearchNode(a,old,inhelp.get(insert.indexOf(a))), new SearchNode(a,temp.costFromBeginningToHere+1,temp));
 							inhelp.set(insert.indexOf(a), temp);
 							cost.set(insert.indexOf(a), temp.costFromBeginningToHere+1);
 						
