@@ -99,10 +99,12 @@ public class Solver
 	public Solver(PuzzleBoard initial)
 	{
 		this.priQ=new UpdateableMinPQ<SearchNode>();
+		
 		ArrayList<PuzzleBoard> del= new ArrayList<PuzzleBoard>();
 		ArrayList<PuzzleBoard> insert= new ArrayList<PuzzleBoard>();
 		ArrayList<SearchNode> inhelp= new ArrayList<SearchNode>();
 		ArrayList<Integer> cost= new ArrayList<Integer>();
+		
 		SearchNode ori= new SearchNode(initial,0,null);
 		this.priQ.insert(ori);
 		while(!priQ.isEmpty())
@@ -127,10 +129,10 @@ public class Solver
 						this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
 						
 					}
-					else if(insert.contains(a))
+					else if(insert.contains(a)&&!del.contains(a))
 					{
 						int old=cost.get(insert.indexOf(a));
-						if(old>temp.costFromBeginningToHere+1)
+						if(cost.get(insert.indexOf(a))>temp.costFromBeginningToHere+1)
 						{
 							priQ.updateKey(new SearchNode(a,old,inhelp.get(old)), new SearchNode(a,temp.costFromBeginningToHere+1,temp));
 						}
