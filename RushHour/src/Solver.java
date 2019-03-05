@@ -134,7 +134,7 @@ public class Solver
 						this.priQ.insert(new SearchNode(a,temp.costFromBeginningToHere+1,temp));
 						
 					}
-					if(insert.contains(a))
+					if(insert.contains(a)&&!del.contains(a))
 					{
 						int old=cost.get(insert.indexOf(a));
 						if(old>temp.costFromBeginningToHere+1)
@@ -147,7 +147,7 @@ public class Solver
 						}
 					}
 				}
-				
+				   
 			}
 		}
 		
