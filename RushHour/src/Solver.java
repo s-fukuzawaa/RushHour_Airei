@@ -131,7 +131,7 @@ public class Solver
 						open.put(a, insert);
 						
 					}
-					if(open.contains(a)&&!del.contains(a))
+					else if(open.contains(a)&&!del.contains(a))
 					{
 						
 						if(open.get(a).costFromBeginningToHere>temp.costFromBeginningToHere+1)
@@ -140,6 +140,7 @@ public class Solver
 							priQ.updateKey(open.get(a), update);
 							open.delete(a);
 							open.put(a, update);
+							
 						
 						}
 					}
