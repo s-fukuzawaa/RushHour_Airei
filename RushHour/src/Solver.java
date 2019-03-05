@@ -100,7 +100,7 @@ public class Solver
 	{
 		this.priQ=new UpdateableMinPQ<SearchNode>();
 		
-		ArrayList<PuzzleBoard> del= new ArrayList<PuzzleBoard>();
+		LinearProbingHashST<PuzzleBoard, Integer> del= new LinearProbingHashST<PuzzleBoard, Integer>();
 		LinearProbingHashST<PuzzleBoard, SearchNode> open= new LinearProbingHashST<PuzzleBoard, SearchNode>();
 		
 		
@@ -113,7 +113,7 @@ public class Solver
 			SearchNode temp=this.priQ.delMin();
 			open.delete(temp.board);
 			
-			del.add(temp.board);
+			del.put(temp.board, temp.costFromBeginningToHere);;
 			if(temp.board.isGoal())//
 			{
 				this.goal=new SearchNode(temp.board, temp.costFromBeginningToHere, temp.previous);
