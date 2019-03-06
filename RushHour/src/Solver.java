@@ -171,7 +171,7 @@ public class Solver
 		while(goal.previous!=null)
 		{
 			result.push(goal.board);
-			goal=new SearchNode(goal.previous.board,goal.previous.costFromBeginningToHere,goal.previous.previous);
+			goal=goal.previous;
 			
 			
 		}
