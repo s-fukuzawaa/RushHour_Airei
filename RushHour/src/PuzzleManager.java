@@ -722,20 +722,20 @@ public class PuzzleManager
 		// able to make any slide at all--this makes interactive use more
 		// pleasant, as you can move one vehicle across multiple open spaces
 		// at once
-		VERIFY_NEIGHBORS = false;
+		VERIFY_NEIGHBORS = true;
 
 		// You can run boards in two ways by choosing which code to comment-out
 
-		// This runs EVERY board from the testInput folder
+		//This runs EVERY board from the testInput folder
 //		runAllBoardsFromInputFolder();
 
 		// This runs SPECIFIC board(s) by name.  You may add
 		// or remove board filenames from this array
 		runBoards(new String[]
 				{
-						"board-puzzle-01.txt",
-						"board-puzzle-11.txt",
-						"board-puzzle-21.txt",
+						"board-1truck-1.txt",
+						"board-1truck-1.txt",
+						"board-1truck-1.txt",
 				});
 	}
 }
