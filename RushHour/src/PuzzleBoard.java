@@ -112,35 +112,19 @@ public class PuzzleBoard
 				int length= temp.getLength();
 				if(temp.getIsHorizontal())
 				{
-					if(col==0&&!collide(row,col+length))
+					if(!collide(row,col-1)&&!collide(row,col+length))
 					{
 						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row,col+1,length);
 						modi[i]=change;
 						PuzzleBoard pass= new PuzzleBoard(modi);
 						result.push(pass);
+						Vehicle change2= new Vehicle(i,temp.getIsHorizontal(),row,col-1,length);
+						modi[i]=change2;
+						PuzzleBoard pass2= new PuzzleBoard(modi);
+						result.push(pass2);
+						
 					}
-					else if(col+length-1==5&&!collide(row,col-1))
-					{
-						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row,col-1,length);
-						modi[i]=change;
-						PuzzleBoard pass= new PuzzleBoard(modi);
-						result.push(pass);
-					}
-					else if(!collide(row,col-1))
-					{
-						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row,col-1,length);
-						modi[i]=change;
-						PuzzleBoard pass= new PuzzleBoard(modi);
-						result.push(pass);
-						if(!collide(row,col+length))
-						{
-							Vehicle change2= new Vehicle(i,temp.getIsHorizontal(),row,col+1,length);
-							modi[i]=change2;
-							PuzzleBoard pass2= new PuzzleBoard(modi);
-							result.push(pass2);
-						}
-					}
-					else if(collide(row,col-1)&&!collide(row,col+length))
+					else if(!collide(row,col+length))
 					{
 						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row,col+1,length);
 						modi[i]=change;
@@ -148,17 +132,30 @@ public class PuzzleBoard
 						result.push(pass);
 					}
 					
+					else if(!collide(row,col-1))
+					{
+						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row,col-1,length);
+						modi[i]=change;
+						PuzzleBoard pass= new PuzzleBoard(modi);
+						result.push(pass);
+						
+					}
+					
 				}
 				else
 				{
-					if(row==0&&!collide(row+length,col))
+					if(!collide(row-1,col)&&!collide(row+length,col))
 					{
 						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row+1,col,length);
 						modi[i]=change;
 						PuzzleBoard pass= new PuzzleBoard(modi);
 						result.push(pass);
+						Vehicle change1= new Vehicle(i,temp.getIsHorizontal(),row-1,col,length);
+						modi[i]=change1;
+						PuzzleBoard pass1= new PuzzleBoard(modi);
+						result.push(pass1);
 					}
-					else if(row+length-1==5&&!collide(row-1,col))
+					else if(!collide(row-1,col))
 					{
 						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row-1,col,length);
 						modi[i]=change;
@@ -171,20 +168,7 @@ public class PuzzleBoard
 						modi[i]=change;
 						PuzzleBoard pass= new PuzzleBoard(modi);
 						result.push(pass);
-						if(!collide(row-1,col))
-						{
-							Vehicle change1= new Vehicle(i,temp.getIsHorizontal(),row-1,col,length);
-							modi[i]=change1;
-							PuzzleBoard pass1= new PuzzleBoard(modi);
-							result.push(pass1);
-						}
-					}
-					else if(!collide(row-1,col)&&collide(row+length,col))
-					{
-						Vehicle change= new Vehicle(i,temp.getIsHorizontal(),row-1,col,length);
-						modi[i]=change;
-						PuzzleBoard pass= new PuzzleBoard(modi);
-						result.push(pass);
+						
 					}
 					
 				}
