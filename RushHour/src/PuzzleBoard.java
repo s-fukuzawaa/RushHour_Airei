@@ -102,11 +102,8 @@ public class PuzzleBoard
 		
 		for(int i=0; i<idToVehicle.length; i++)
 		{
-			if(idToVehicle[i]==null)
-			{
-				i=i;
-			}
-			else
+			
+			if(idToVehicle[i]!=null)
 			{
 				int row= idToVehicle[i].getLeftTopRow();
 				int col= idToVehicle[i].getLeftTopColumn();
