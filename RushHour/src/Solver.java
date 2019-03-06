@@ -134,11 +134,11 @@ public class Solver
 						}
 						else
 						{
-							
-							if(open.get(a).costFromBeginningToHere>temp.costFromBeginningToHere+1)
+							SearchNode support=open.get(a);
+							if(support.costFromBeginningToHere>temp.costFromBeginningToHere+1)
 							{
 								SearchNode update=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
-								priQ.updateKey(open.get(a), update);
+								priQ.updateKey(support, update);
 								open.delete(a);
 								open.put(a, update);
 								
