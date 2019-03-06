@@ -5,16 +5,14 @@ public class PuzzleBoard
 {
 	// Do not change the name or type of this field
 	private Vehicle[] idToVehicle;
-	private LinearProbingHashST<Integer, LinearProbingHashST<Integer,Vehicle>> boardhori;
-	private LinearProbingHashST<Integer, LinearProbingHashST<Integer,Vehicle>> boardverti;
+	private Vehicle[][] board;
 	
 	// You may add additional private fields here
 	
 	public PuzzleBoard(Vehicle[] idToVehicleP)
 	{
 		this.idToVehicle= new Vehicle[idToVehicleP.length];
-		this.boardhori= new LinearProbingHashST<Integer, LinearProbingHashST<Integer,Vehicle>>();
-		this.boardverti= new LinearProbingHashST<Integer, LinearProbingHashST<Integer,Vehicle>>();
+		this.board= new Vehicle[6][6];
 
 
 		for(int i=0; i<idToVehicleP.length; i++)
@@ -22,55 +20,23 @@ public class PuzzleBoard
 			this.idToVehicle[i]=idToVehicleP[i];
 			if(idToVehicle[i]!=null)
 			{
+				int row=idToVehicle[i].getLeftTopRow();
+				int col=idToVehicle[i].getLeftTopColumn();
+				int leng=idToVehicle[i].getLength();
 				if(idToVehicle[i].getIsHorizontal())
 				{
-					
-					int row=idToVehicle[i].getLeftTopRow();
-						int col=idToVehicle[i].getLeftTopColumn();
-						if(boardhori.contains(row))
-						{
-							for(int j=0; j<idToVehicle[i].getLength(); j++)
-							{
-								boardhori.get(row).put(col+j, idToVehicle[i]);
-							}
-						}
-						else
-						{
-							LinearProbingHashST<Integer,Vehicle> colid=new LinearProbingHashST<Integer,Vehicle>();
-							for(int j=0; j<idToVehicle[i].getLength(); j++)
-							{
-
-								colid.put(col+j, idToVehicle[i]);
-							}
-							boardhori.put(row, colid);
-
-						}
-						
-						
-						
+					for(int j=0; j<leng; j++)
+					{
+						board[row][col+j]=idToVehicle[i];
+					}
 					
 				}
-				if(idToVehicle[i].getIsHorizontal()==false)
+				else
 				{
-					int row=idToVehicle[i].getLeftTopRow();
-					int col=idToVehicle[i].getLeftTopColumn();
-						if(boardverti.contains(col))
-						{
-							for(int j=0; j<idToVehicle[i].getLength(); j++)
-							{
-								boardverti.get(col).put(row+j, idToVehicle[i]);
-							}
-						}
-						else
-						{
-							LinearProbingHashST<Integer,Vehicle> rowid=new LinearProbingHashST<Integer,Vehicle>();
-							for(int j=0; j<idToVehicle[i].getLength(); j++)
-							{
-								rowid.put(row+j, idToVehicle[i]);
-							}
-							boardverti.put(col, rowid);
-
-						}
+					for(int j=0; j<leng; j++)
+					{
+						board[row+j][col]=idToVehicle[i];
+					}
 						
 					
 				}
@@ -88,20 +54,8 @@ public class PuzzleBoard
 
 	public Vehicle getVehicle(int row, int column)
 	{
-		if(!boardhori.contains(row)&&!boardverti.contains(column))
-		{
-			return null;
-		}
-		if(boardhori.contains(row)&&boardhori.get(row).contains(column))
-		{
-			return boardhori.get(row).get(column);
-		}
-		if(boardverti.contains(column)&&boardverti.get(column).contains(row))
-		{
-			return boardverti.get(column).get(row);
-		}
 		
-		return null;
+		return board[row][column];
 	}
 	
 	public int heuristicCostToGoal()
@@ -125,19 +79,7 @@ public class PuzzleBoard
 	
 	private boolean collide(int row, int column)
 	{
-		if(row==-1||row==6||column==-1||column==6)
-		{
-			return true;
-		}
-		if(!boardhori.contains(row)&&!boardverti.contains(column))
-		{
-			return false;
-		}
-		if(boardhori.contains(row)&&boardhori.get(row).contains(column))
-		{
-			return true;
-		}
-		if(boardverti.contains(column)&&boardverti.get(column).contains(row))
+		if(row==-1||row==6||column==-1||column==6||board[row][column]!=null)
 		{
 			return true;
 		}
