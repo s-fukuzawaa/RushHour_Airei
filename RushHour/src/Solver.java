@@ -124,26 +124,30 @@ public class Solver
 				
 				for(PuzzleBoard a : temp.board.getNeighbors())
 				{
-					if(!del.contains(a)&&!open.contains(a))
+					if(!del.contains(a))
 					{
-						SearchNode insert=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
-						this.priQ.insert(insert);
-						open.put(a, insert);
-						
-					}
-					else if(open.contains(a)&&!del.contains(a))
-					{
-						
-						if(open.get(a).costFromBeginningToHere>temp.costFromBeginningToHere+1)
+						if(!open.contains(a))
 						{
-							SearchNode update=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
-							priQ.updateKey(open.get(a), update);
-							open.delete(a);
-							open.put(a, update);
-							
-						
+							SearchNode insert=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
+							this.priQ.insert(insert);
+							open.put(a, insert);
 						}
+						else
+						{
+							
+							if(open.get(a).costFromBeginningToHere>temp.costFromBeginningToHere+1)
+							{
+								SearchNode update=new SearchNode(a,temp.costFromBeginningToHere+1,temp);
+								priQ.updateKey(open.get(a), update);
+								open.delete(a);
+								open.put(a, update);
+								
+							
+							}
+						}
+						
 					}
+					
 				}
 				   
 			}
